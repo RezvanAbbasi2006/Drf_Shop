@@ -1,39 +1,44 @@
-from rest_framework import status
+from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
-from apps.models.cart.models import Cart
+from apps.models.cart.models import Cart, CartItem
+from apps.serilizers.cart.serilizers import CartSerializer, CartItemSerializer
 
 
-class CartAPI(APIView):
-    """
-    Single API to handle cart operations
-    """
+class CartViewSet(viewsets.ModelViewSet):
+    serializer_class = CartSerializer
 
-    def get(self, request, format=None):
-        cart = Cart(request)
+    def get_queryset(self):
+        cart = Cart.objects.prefetch_related("cart").get_or_create(
+            customer_id=self.request.user.id)
+        return cart
 
-        return Response({"data": list(cart.__iter__()), "cart_total_price": cart.get_total_price()},
-                        status=status.HTTP_200_OK
-                        )
+    def list(self, request, *args, **kwargs):
+        cart = self.get_queryset()
+        serializer = self.serializer_class(cart)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-    def post(self, request, **kwargs):
-        cart = Cart(request)
+    def create(self, request, *args, **kwargs):
+        cart = self.get_queryset()
+        serializer = CartItemSerializer(request.data)
+        serializer.is_valid(raise_exception=True)
+        product = serializer.validated_data['product']
+        product_count = serializer.validated_data['count']
 
-        if "remove" in request.data:
-            product = request.data["product"]
-            cart.remove(product)
+        product_exist = Cart.cart.filter(
+            product=product,
+            cart_user_id=request.user.id
+        ).first()
+        if product_exist:
+            product_exist.count += product_count
+            product_exist.save()
+            return Response(status=status.HTTP_200_OK)
 
-        elif "clear" in request.data:
-            cart.clear()
+        CartItem.objects.create(
+            cart_id=cart.id,
+            product=product,
+            count=product_count
+        )
+        return Response(status=status.HTTP_201_CREATED)
 
-        else:
-            product = request.data
-            cart.add(
-                product=product["product"],
-                quantity=product["quantity"],
-                overide_quantity=product["overide_quantity"] if "overide_quantity" in product else False
-            )
 
-        return Response({"message": "cart updated"},
-                        status=status.HTTP_202_ACCEPTED)
