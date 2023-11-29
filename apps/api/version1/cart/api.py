@@ -2,6 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 from apps.models.cart.models import Cart, CartItem
+from apps.models.product.models import Product
 from apps.serilizers.cart.serilizers import CartSerializer, CartItemSerializer
 
 
@@ -9,7 +10,7 @@ class CartViewSet(viewsets.ModelViewSet):
     serializer_class = CartSerializer
 
     def get_queryset(self):
-        cart = Cart.objects.prefetch_related("cart").get_or_create(
+        cart = Cart.objects.prefetch_related("cart_item").get_or_create(
             customer_id=self.request.user.id)
         return cart
 
@@ -20,14 +21,14 @@ class CartViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         cart = self.get_queryset()
-        serializer = CartItemSerializer(request.data)
+        serializer = CartItemSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         product = serializer.validated_data['product']
         product_count = serializer.validated_data['count']
 
-        product_exist = Cart.cart.filter(
+        product_exist = Cart.cart_item.filter(
             product=product,
-            cart_user_id=request.user.id
+            user_id=request.user.id
         ).first()
         if product_exist:
             product_exist.count += product_count
@@ -40,5 +41,3 @@ class CartViewSet(viewsets.ModelViewSet):
             count=product_count
         )
         return Response(status=status.HTTP_201_CREATED)
-
-
