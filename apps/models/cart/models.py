@@ -27,3 +27,9 @@ class CartItem(models.Model):
 
     def get_total_price(self):
         return self.count * self.product.price
+
+
+class Transaction(models.Model):
+    pass
+
+
