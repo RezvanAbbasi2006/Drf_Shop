@@ -45,6 +45,5 @@ class Transaction(models.Model):
         ordering = ['-timestamp']
 
 
-
-
-
+class NewXlm(models.Model):
+    pass
