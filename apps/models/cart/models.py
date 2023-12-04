@@ -45,7 +45,6 @@ class Transaction(models.Model):
         ordering = ['-timestamp']
 
 
-class MetaNew(BaseModel):
-    pass
+
 
 
