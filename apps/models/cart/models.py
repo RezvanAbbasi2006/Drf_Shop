@@ -30,6 +30,19 @@ class CartItem(models.Model):
 
 
 class Transaction(models.Model):
-    pass
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_transaction')
+    cart_id = models.CharField(max_length=120)
+    token = models.CharField(max_length=120)
+    amount = models.DecimalField(max_digits=100)
+    success = models.BooleanField(default=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.cart_id} is transacting.'
+
+    class Meta:
+        ordering = ['-timestamp']
+
+
 
 
