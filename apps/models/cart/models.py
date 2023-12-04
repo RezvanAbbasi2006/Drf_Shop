@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from apps.core.models import BaseModel
 from apps.models.product.models import Product
 
 User = get_user_model()
@@ -44,5 +45,7 @@ class Transaction(models.Model):
         ordering = ['-timestamp']
 
 
+class MetaNew(BaseModel):
+    pass
 
 
