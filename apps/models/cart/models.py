@@ -8,6 +8,9 @@ User = get_user_model()
 
 
 class Cart(models.Model):
+    """
+    Create shopping cart
+    """
     customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart')
     is_active = models.BooleanField(default=True)
     created_data = models.DateTimeField(auto_now_add=True)
@@ -17,6 +20,9 @@ class Cart(models.Model):
 
 
 class CartItem(models.Model):
+    """
+    Filling the specified cart with products
+    """
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cart_item')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
     total_price = models.FloatField(max_length=50, blank=True)
@@ -45,5 +51,4 @@ class Transaction(models.Model):
         ordering = ['-timestamp']
 
 
-class NewXlm(models.Model):
-    pass
+
