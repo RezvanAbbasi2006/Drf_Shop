@@ -6,6 +6,9 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
+    """
+    Set user information in database
+    """
     username = models.CharField(
         unique=True,
         max_length=150,

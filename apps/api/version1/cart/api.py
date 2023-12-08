@@ -1,43 +1,68 @@
 from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.models.cart.models import Cart, CartItem
+from apps.models.cart.models import Cart, CartItem, Transaction
 from apps.models.product.models import Product
 from apps.serilizers.cart.serilizers import CartSerializer, CartItemSerializer
 
 
 class CartViewSet(viewsets.ModelViewSet):
+    """
+    Cart Api
+    """
     serializer_class = CartSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        cart = Cart.objects.prefetch_related("cart_item").get_or_create(
-            customer_id=self.request.user.id)
+        """
+        Get cart by item or items
+        """
+        cart = Cart.objects.get_or_create(
+            owner_id=self.request.user.id
+        )
         return cart
 
     def list(self, request, *args, **kwargs):
+        """
+        Show details of spacial cart
+        """
         cart = self.get_queryset()
         serializer = self.serializer_class(cart)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
+        """
+        Create new cart or get exist cart and add selected items for user how logged in
+        """
+        product_id = request.data['product_id']
+        product_count = request.data['count']
+
+        product = Product.objects.get(id=product_id)
+
         cart = self.get_queryset()
+
         serializer = CartItemSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        product = serializer.validated_data['product']
-        product_count = serializer.validated_data['count']
 
-        product_exist = Cart.cart_item.filter(
-            product=product,
-            user_id=request.user.id
+        cart_item_exist = Cart.objects.filter(
+            items__product_id=product_id,
+            owner_id=request.user.id
         ).first()
-        if product_exist:
-            product_exist.count += product_count
-            product_exist.save()
+
+        if cart_item_exist:
+            cart_item_exist.count += product_count
+            cart_item_exist.save()
             return Response(status=status.HTTP_200_OK)
 
-        CartItem.objects.create(
-            cart_id=cart.id,
-            product=product,
-            count=product_count
+        cart_item = CartItem.objects.create(
+            is_ordered=True,
+            count=product_count,
+            product=product
         )
+
+        transaction = Transaction.objects.create(
+            customer=request.user
+        )
+
         return Response(status=status.HTTP_201_CREATED)

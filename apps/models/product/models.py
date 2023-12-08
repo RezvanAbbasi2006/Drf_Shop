@@ -4,6 +4,9 @@ from django.db import models
 
 
 class Product(BaseModel):
+    """
+    Set products information in database
+    """
     name = models.CharField(max_length=150)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
