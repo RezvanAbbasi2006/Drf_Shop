@@ -28,6 +28,9 @@ class User(AbstractUser):
     )
     uid = models.CharField(_("uid"), max_length=300, default=uuid.uuid4())
 
+    def set_password(self, raw_password):
+        self.password = raw_password
+
     class Meta:
         verbose_name = _("کاربر")
         verbose_name_plural = _("کاربران")
