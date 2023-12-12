@@ -18,8 +18,8 @@ import debug_toolbar
 from django.urls import path, include
 
 urlpatterns = [
-    path("apis-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("__debug__/", include(debug_toolbar.urls)),
-    path('api_v1/', include('apps.apis.urls')),
+    path('api_v1/', include('apps.api.urls')),
 
 ]

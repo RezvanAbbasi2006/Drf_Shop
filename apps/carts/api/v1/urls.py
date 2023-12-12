@@ -9,5 +9,5 @@ router = DefaultRouter()
 router.register('carts', CartViewSet, basename='carts')
 
 urlpatterns = [
-    path('apis/', include(router.urls)),
+    path('api/', include(router.urls)),
 ]
