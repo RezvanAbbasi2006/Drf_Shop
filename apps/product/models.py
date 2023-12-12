@@ -17,13 +17,13 @@ class ProductCategory(BaseModel):
 
 class Product(BaseModel):
     """
-    Set products information in database
+    Set product information in database
     """
     name = models.CharField(max_length=150)
     category = models.ForeignKey(
         ProductCategory,
         on_delete=models.CASCADE,
-        related_name='products',
+        related_name='product',
         null=True
     )
     description = models.TextField(blank=True)

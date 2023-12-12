@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.user",
     "apps.product",
-    "apps.cart",
+    "apps.carts",
     "drf_yasg",
     "rest_framework",
     "rest_framework.authtoken",
@@ -109,7 +109,7 @@ REST_FRAMEWORK = {
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-CART_SESSION_ID = 'cart'
+CART_SESSION_ID = 'carts'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -1,4 +1,4 @@
 from apps import home
-from apps.cart import admin
+from apps.carts import admin
 
 admin.site.register(home)
