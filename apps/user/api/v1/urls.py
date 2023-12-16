@@ -1,7 +1,8 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from apps.user.api.v1.api import RegisterAPIView, EmailTokenObtainPairView, LoginApiView, ResetPasswordApi, ConfirmPasswordApi
+from apps.user.api.v1.api import RegisterAPIView, EmailTokenObtainPairView, LoginApiView, ResetPasswordApi, \
+    ConfirmPasswordApi
 
 app_name = "user"
 urlpatterns = [
