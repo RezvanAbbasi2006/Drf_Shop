@@ -15,6 +15,8 @@ from django.core.mail import send_mail
 from apps.user.serilizers import RegisterSerializer, TokenObtainPairSerializer, LoginSerializer, \
     ResetPasswordSerializer, ConfirmPasswordSerializer
 
+from apps.user.tasks import send_email_task
+
 
 class RegisterAPIView(generics.GenericAPIView):
     """Register user"""
@@ -66,7 +68,7 @@ class ResetPasswordApi(APIView):
                     + f"?uid={user.uid}"
             )
 
-            send_mail(
+            send_email_task.delay(
                 "Confirmation email for reset password",
                 f"click on link {reset_url}",
                 [user.email]
