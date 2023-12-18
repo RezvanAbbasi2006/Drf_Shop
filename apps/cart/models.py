@@ -8,7 +8,7 @@ from apps.user.models import User
 
 class CartItem(models.Model):
     """
-    Select items for shopping carts
+    Select items for shopping cart
     """
     product = models.ForeignKey(
         Product,
@@ -27,7 +27,7 @@ class CartItem(models.Model):
 
 class Cart(models.Model):
     """
-    Making a shopping carts with all the selected product
+    Making a shopping cart with all the selected product
     """
     ref_code = models.CharField(max_length=15, null=True)
     owner = models.ForeignKey(
@@ -39,7 +39,7 @@ class Cart(models.Model):
     is_ordered = models.BooleanField(default=False, null=True)
     items = models.ForeignKey(
         CartItem,
-        related_name='carts',
+        related_name='cart',
         on_delete=models.CASCADE,
         null=True
     )

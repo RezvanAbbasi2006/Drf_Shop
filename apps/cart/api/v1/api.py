@@ -2,9 +2,9 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.carts.models import Cart, CartItem, Transaction
+from apps.cart.models import Cart, CartItem, Transaction
 from apps.product.models import Product
-from apps.carts.serilizers import CartSerializer, CartItemSerializer
+from apps.cart.serilizers import CartSerializer, CartItemSerializer
 
 
 class CartViewSet(viewsets.ModelViewSet):
@@ -16,7 +16,7 @@ class CartViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """
-        Get carts by item or items
+        Get cart by item or items
         """
         cart = Cart.objects.get_or_create(
             owner_id=self.request.user.id
@@ -25,7 +25,7 @@ class CartViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         """
-        Show details of spacial carts
+        Show details of spacial cart
         """
         cart = self.get_queryset()
         serializer = self.serializer_class(cart)
@@ -33,7 +33,7 @@ class CartViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         """
-        Create new carts or get exist carts and add selected items for user how logged in
+        Create new cart or get exist cart and add selected items for user how logged in
         """
         product_id = request.data['product_id']
         product_count = request.data['count']

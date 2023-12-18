@@ -51,7 +51,9 @@ class LoginApiView(APIView):
 
 
 class ResetPasswordApi(APIView):
+
     def post(self, request, *args, **kwargs):
+        print("SER    :")
         serializer = ResetPasswordSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 

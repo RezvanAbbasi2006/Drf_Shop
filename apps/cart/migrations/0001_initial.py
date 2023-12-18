@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
                 ('ref_code', models.CharField(max_length=15, null=True)),
                 ('is_ordered', models.BooleanField(default=False, null=True)),
                 ('date_ordered', models.DateTimeField(auto_now=True, null=True)),
-                ('items', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='carts', to='carts.cartitem')),
+                ('items', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='cart', to='cart.cartitem')),
                 ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='users', to=settings.AUTH_USER_MODEL)),
             ],
         ),

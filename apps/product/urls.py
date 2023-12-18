@@ -1,6 +1,6 @@
 from .api.v1.urls import urlpatterns as v1_urlpatterns
 
-app_name = "product"
+app_name = 'product'
 
 urlpatterns = []
 urlpatterns += v1_urlpatterns

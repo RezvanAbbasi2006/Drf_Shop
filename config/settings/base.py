@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.user",
     "apps.product",
-    "apps.carts",
+    "apps.cart",
     "apps.home",
     "apps.api",
     "drf_yasg",
@@ -101,9 +101,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated'
-    ]
+    # 'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.IsAuthenticated'
+    # ]
 }
 
 # Password validation
@@ -111,7 +111,7 @@ REST_FRAMEWORK = {
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-CART_SESSION_ID = 'carts'
+CART_SESSION_ID = 'cart'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -131,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'fa'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 

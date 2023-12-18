@@ -1,12 +1,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from apps.home.api.v1.api import HomeViewSet
+from apps.cart.api.v1.api import CartViewSet
 
-app_name = "home"
+app_name = "cart"
 
 router = DefaultRouter()
-router.register('home', HomeViewSet, basename='home')
+router.register('cart', CartViewSet, basename='cart')
 
 urlpatterns = [
     path('', include(router.urls)),
