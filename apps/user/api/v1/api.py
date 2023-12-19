@@ -15,7 +15,8 @@ from django.core.mail import send_mail
 from apps.user.serilizers import RegisterSerializer, TokenObtainPairSerializer, LoginSerializer, \
     ResetPasswordSerializer, ConfirmPasswordSerializer
 
-from apps.user.tasks import send_email_task
+from config.tasks import send_email_task
+
 
 
 class RegisterAPIView(generics.GenericAPIView):
@@ -53,27 +54,25 @@ class LoginApiView(APIView):
 class ResetPasswordApi(APIView):
 
     def post(self, request, *args, **kwargs):
-        print("SER    :")
         serializer = ResetPasswordSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         email = serializer.validated_data['email']
-        user = User.objects.filter(email__exact=email).filter()
+        user = User.objects.filter(email__exact=email).values('uid', 'email')
+        print("USER VAL   :", user[0]['uid'])
 
         if user:
             api_version = request.version
-
             reset_url = (
                     request.build_absolute_uri(
-                        reverse(f"{api_version}:users:confirm-password")
+                        reverse(f"{api_version}:user:confirm_password")
                     )
-                    + f"?uid={user.uid}"
+                    + f"?uid={user[0]['uid']}"
             )
-
             send_email_task.delay(
                 "Confirmation email for reset password",
                 f"click on link {reset_url}",
-                [user.email]
+                [user[0]['email']]
             )
 
             return Response(status=status.HTTP_200_OK)
