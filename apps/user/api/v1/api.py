@@ -10,13 +10,12 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.user.models import User
-from config.settings import email_settings
+from config.settings import email
 from django.core.mail import send_mail
 from apps.user.serilizers import RegisterSerializer, TokenObtainPairSerializer, LoginSerializer, \
     ResetPasswordSerializer, ConfirmPasswordSerializer
 
 from config.tasks import send_email_task
-
 
 
 class RegisterAPIView(generics.GenericAPIView):
@@ -59,7 +58,6 @@ class ResetPasswordApi(APIView):
 
         email = serializer.validated_data['email']
         user = User.objects.filter(email__exact=email).values('uid', 'email')
-        print("USER VAL   :", user[0]['uid'])
 
         if user:
             api_version = request.version
