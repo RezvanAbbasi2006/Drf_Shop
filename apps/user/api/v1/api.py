@@ -62,7 +62,7 @@ class ResetPasswordApi(APIView):
             api_version = request.version
             reset_url = (
                     request.build_absolute_uri(
-                        reverse(f"{api_version}:user:confirm_password")
+                        reverse(f"v1:user:confirm_password")
                     )
                     + f"?uid={user[0]['uid']}"
             )

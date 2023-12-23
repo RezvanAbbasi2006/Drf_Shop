@@ -78,10 +78,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 AUTH_USER_MODEL = "user.User"
-# AUTHENTICATION_BACKENDS = [
-#     "apps.users.backend.RegisterWithEmail",
-#     "django.contrib.auth.backends.ModelBackend",
-# ]
 AUTHENTICATION_BACKENDS = [
     "apps.user.auth_backends.EmailBackend",
     "django.contrib.auth.backends.ModelBackend",
@@ -101,10 +97,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+    'ALLOWED_VERSION': ['v1'],
+    'DEFAULT_VERSION': ['v1'],
     # 'DEFAULT_PERMISSION_CLASSES': [
     # 'rest_framework.permissions.IsAuthenticated'
-    # ]
+    # ],
 }
 
 # Password validation
