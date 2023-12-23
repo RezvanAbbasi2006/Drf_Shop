@@ -10,12 +10,11 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.user.models import User
-from config.settings import email
-from django.core.mail import send_mail
 from apps.user.serilizers import RegisterSerializer, TokenObtainPairSerializer, LoginSerializer, \
     ResetPasswordSerializer, ConfirmPasswordSerializer
 
 from config.tasks import send_email
+from django.utils.translation import gettext_lazy as _
 
 
 class RegisterAPIView(generics.GenericAPIView):
@@ -69,7 +68,7 @@ class ResetPasswordApi(APIView):
             )
 
             send_email.delay(
-                "Confirmation email for reset password",
+                _('change password'),
                 f"click on link {reset_url}",
                 [user[0]['email']]
             )
