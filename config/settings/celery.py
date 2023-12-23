@@ -1,15 +1,7 @@
 CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
 
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 timezone = "Tehran/Iran"
-
-# CELERY_BROKER_BACKEND = "memory"
-# CELERY_CACHE_BACKEND = True
-# CELERY_TASK_ALWAYS_EAGER = True
-# CELERY_TASK_EAGER_PROPAGATES = True
-
-# Other configuration:
-# RESULT_EXPIRE = 3600
