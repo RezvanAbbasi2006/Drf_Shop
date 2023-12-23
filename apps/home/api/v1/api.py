@@ -9,6 +9,4 @@ from apps.product.models import Product
 class HomeAPI(APIView):
 
     def get(self):
-        query_set = Product.objects.all()
-
-        return Response(data={HomeSerializer(query_set, many=True)}, status=status.HTTP_200_OK)
+        pass

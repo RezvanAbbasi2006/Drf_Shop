@@ -5,9 +5,6 @@ from apps.product.serilizers import ProductSerializer, ProductCategorySerializer
 
 
 class HomeSerializer(serializers.ModelSerializer):
-    product = ProductSerializer
-    category = ProductCategorySerializer
+    product = ProductSerializer(many=True)
+    category = ProductCategorySerializer(many=True)
 
-    class Meta:
-        model = Home
-        fields = '__all__'
