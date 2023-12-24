@@ -1,10 +1,10 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from apps.home.api.v1.api import HomeAPI
+from apps.home.api.v1.api import Home
 
 app_name = "home"
 
 urlpatterns = [
-    path('', HomeAPI.as_view(), name='home'),
+    path('', Home.as_view(), name='home'),
 ]

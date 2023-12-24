@@ -1,10 +1,12 @@
 from celery import Celery
 import os
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.celery")
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.email')
+
 
 app = Celery('drf-shop')
-app.config_from_object("config.settings.celery", namespace="CELERY")
+app.config_from_object("config.settings.celery_config", namespace="CELERY")
 
 app.autodiscover_tasks()
 
