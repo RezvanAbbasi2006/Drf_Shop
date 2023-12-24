@@ -7,9 +7,9 @@ class ProductCategory(BaseModel):
     """
     Each product have one spacial category like digital for mobile
     """
-    title = models.CharField(max_length=120)
-    type = models.CharField(max_length=120)
-    description = models.TextField(max_length=180)
+    title = models.CharField(max_length=120, null=True)
+    type = models.CharField(max_length=120, null=True)
+    description = models.TextField(max_length=180, null=True)
 
     def __str__(self):
         return self.title

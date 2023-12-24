@@ -18,4 +18,4 @@ class ProductCategorySerializer(serializers.ModelSerializer):
 
 class HomeSerializer(serializers.Serializer):
     product = ProductSerializer(many=True)
-    category = ProductCategorySerializer(many=True)
+    # category = ProductCategorySerializer(many=True)

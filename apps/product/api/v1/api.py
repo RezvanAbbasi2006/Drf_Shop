@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from apps.product.models import Product
-from apps.product.serilizers import ProductSerializer
+from apps.product.serilizers import ProductSerializer, ProductCategorySerializer
 
 
 class ProductAPI(APIView):
@@ -25,3 +25,13 @@ class ProductAPI(APIView):
             serializer.data,
             status=status.HTTP_201_CREATED
         )
+
+
+class ProductCategoryAPI(APIView):
+
+    def post(self, request, *args, **kwargs):
+        serializer = ProductCategorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.create(validated_data=request.data)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
