@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "django.contrib.humanize",
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -86,8 +88,8 @@ AUTHENTICATION_BACKENDS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'newdb',
-        'USER': 'rez',
+        'NAME': 'gmarket',
+        'USER': 'developer',
         'PASSWORD': '123456',
         'PORT': '5432',
         'HOST': 'localhost',
@@ -146,16 +148,9 @@ LANGUAGES = (
 LOCALE_PATHS = [
     BASE_DIR / "locale/",
 ]
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
+env = environ.Env()
+environ.Env.read_env()
 

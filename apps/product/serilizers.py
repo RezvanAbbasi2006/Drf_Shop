@@ -24,8 +24,19 @@ class ProductCategorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = serializers.ModelSerializer(ProductCategorySerializer)
-
     class Meta:
         model = Product
         fields = "__all__"
+
+    def create(self, validated_data):
+        category_title = validated_data['category']
+        category = ProductCategory.objects.get(
+            title__exact=category_title
+        )
+
+        product = Product.objects.create(**validated_data)
+
+        product.category = category
+        product.save()
+
+        return product
