@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 import environ
-
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -151,5 +151,8 @@ LOCALE_PATHS = [
 
 STATIC_URL = 'static/'
 
-env = environ.Env()
-environ.Env.read_env(BASE_DIR / ".env")
+# env = environ.Env()
+# environ.Env.read_env(BASE_DIR / ".env")
+
+
+load_dotenv()
