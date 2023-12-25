@@ -1,6 +1,4 @@
 from rest_framework import serializers
-
-from apps.home.models import Home
 from apps.product.models import Product, ProductCategory
 
 
@@ -18,4 +16,4 @@ class ProductCategorySerializer(serializers.ModelSerializer):
 
 class HomeSerializer(serializers.Serializer):
     product = ProductSerializer(many=True)
-    # category = ProductCategorySerializer(many=True)
+    category = ProductCategorySerializer(many=True)

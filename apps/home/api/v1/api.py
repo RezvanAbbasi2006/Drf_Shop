@@ -1,4 +1,4 @@
-from rest_framework import viewsets, status
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -9,15 +9,13 @@ from apps.product.models import Product, ProductCategory
 class Home(APIView):
 
     def get(self, request, *args, **kwargs):
-        product = Product.objects.all()
-        # category = ProductCategory.objects.all()
-
+        products = Product.objects.order_by("-created_at")
+        category = ProductCategory.objects.all()
         data = {
-            "products": product,
-            # "category": category
+            "product": products,
+            "category": category
         }
-        serializer = HomeSerializer(data=data)
-        print("DATA   :", data)
-        if serializer.is_valid():
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = HomeSerializer(data)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)

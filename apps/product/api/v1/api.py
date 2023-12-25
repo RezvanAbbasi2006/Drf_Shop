@@ -19,7 +19,6 @@ class ProductViewSet(viewsets.ModelViewSet):
         )
 
     def post(self, request, *args, **kwargs):
-        print("CAT   :", request.data['category'])
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
             serializer.create(validated_data=request.data)

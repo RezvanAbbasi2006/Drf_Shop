@@ -9,7 +9,6 @@ class ProductCategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data, *args, **kwargs):
-        print("VALIDATED DATA    :", validated_data)
         title = validated_data['title']
         type = validated_data['type']
         description = validated_data['description']
