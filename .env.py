@@ -1,5 +1,5 @@
 # ARVAN CLOUD SETTING
-from config.settings import env
+from config.settings.base import env
 
 DEFAULT_AUTO_FIELD = env('django.db.models.BigAutoField')
 DEFAULT_FILE_STORAGE = env('storages.backends.s3.S3Storage')
