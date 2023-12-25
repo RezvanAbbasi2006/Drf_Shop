@@ -12,3 +12,5 @@ ARVAN_STORAGE_DEFAULT_ACL = 'public-read'
 # EMAIL SETTING
 EMAIL_HOST_USER = "your email"
 EMAIL_HOST_PASSWORD = "your password"
+
+SECRET_KEY = 'django-insecure-9c4%pa+gw@hfk1^5ke*u7etn^vu1mu2vganw9((pcek38d$45f'
