@@ -155,4 +155,4 @@ STATIC_URL = 'static/'
 # environ.Env.read_env(BASE_DIR / ".env")
 
 
-load_dotenv()
+load_dotenv(BASE_DIR / ".env")
