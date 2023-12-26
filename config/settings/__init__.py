@@ -1,11 +1,10 @@
-from .base import *
-import os
+# import os
+from split_settings.tools import include
 
-# if os.environ.get("ENV_NAME") == 'Production':
-#     from .production import *
-# elif os.environ.get("ENV_NAME") == 'Staging':
-#     from .staging import *
-if os.environ.get("ENV_NAME") == 'env':
-    from .aws import *
-else:
-    from .local import *
+include("aws.py")
+
+# print("LOGGG   :", os.environ.get("ENV_NAME"))
+# if os.environ.get("ENV_NAME") == 'env':
+#     from .aws import *
+# else:
+#     from .local import *
