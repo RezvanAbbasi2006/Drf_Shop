@@ -2,13 +2,15 @@ import os
 
 from config.settings.base import BASE_DIR
 
-DEBUG = TrueALLOWED_HOSTS = ['*']
+DEBUG = os.getenv('DEBUG')
+ALLOWED_HOSTS = ['*']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'shopcenter',
-        'USER': 'myuser',
-        'PASSWORD': 'rezvan123456789',
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
         'PORT': '5432',
         'HOST': 'localhost',
     }

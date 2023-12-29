@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
-import environ
+from config.env import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -10,14 +10,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9c4%pa+gw@hfk1^5ke*u7etn^vu1mu2vganw9((pcek38d$45f'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-}
+DEBUG = os.getenv('DEBUG')
+# DEBUG_TOOLBAR_CONFIG = {
+#     'INTERCEPT_REDIRECTS': False,
+# }
 
 ALLOWED_HOSTS = ['*']
 
@@ -33,8 +32,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "debug_toolbar",
-    "apps.core",
+    # "debug_toolbar",
+    "apps.core"
     "apps.user",
     "apps.product",
     "apps.cart",
@@ -51,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "django.middleware.locale.LocaleMiddleware",  # new
-    "debug_toolbar.middleware.DebugToolbarMiddleware",  # new
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",  # new
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -88,9 +87,9 @@ AUTHENTICATION_BACKENDS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gmarket',
-        'USER': 'developer',
-        'PASSWORD': '123456',
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
         'PORT': '5432',
         'HOST': 'localhost',
     }
@@ -150,10 +149,3 @@ LOCALE_PATHS = [
 ]
 
 STATIC_URL = 'static/'
-
-env = environ.Env()
-environ.Env.read_env(BASE_DIR / ".env")
-
-
-
-
